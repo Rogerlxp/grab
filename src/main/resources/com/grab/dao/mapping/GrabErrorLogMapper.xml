@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grab.dao.mapping.GrabErrorLogMapper">
+	<sql id="authorColumns">
+        <![CDATA[
+			S.FID               AS  id,                   
+			S.FGRABID           AS  grabId,                 
+			S.FPROCESS_TYPE     AS  processType,               
+			S.FERROR_TYPE       AS  errorType,   
+			S.FDATA_CODE        AS  dataCode,
+			S.FMESSAGE          AS  message,                 
+			S.FCREATE_TIME   	AS  createTime  
+        ]]>
+	</sql>
+
+	<select id="get" resultType="com.grab.domain.grab.GrabErrorLog">
+		SELECT
+		<include refid="authorColumns" />
+        <![CDATA[
+			FROM T_GRAB_LOG S
+			WHERE S.FID=#{id}
+		]]>
+	</select>
+	
+	
+	<insert id="add" parameterType="com.grab.domain.grab.GrabErrorLog" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_GRAB_LOG(                
+			FGRABID,                 
+			FPROCESS_TYPE,               
+			FERROR_TYPE,   
+			FDATA_CODE,
+			FMESSAGE,                 
+			FCREATE_TIME 
+		)
+		VALUES (
+		<![CDATA[
+			#{grabId},                 
+			#{processType},               
+			#{errorType},   
+			#{dataCode},
+			#{message},                 
+			now()  
+		]]>
+		)
+	</insert>
+	
+</mapper>

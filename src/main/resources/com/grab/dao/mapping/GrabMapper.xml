@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grab.dao.mapping.GrabMapper">
+
+	<resultMap id="GrabParamString"
+		type="com.grab.domain.grab.GrabParamString">
+		<result column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="url" property="url" />
+		<result column="methodType" property="methodType" />
+		<result column="paramSchema" property="paramSchema" />
+		<result column="heads" property="heads" />
+		<result column="signId" property="signId" />
+		<result column="signSchema_id" property="signSchema.id"
+			javaType="int" />
+		<result column="signSchema_signParamName" property="signSchema.signParamName" />
+		<result column="signSchema_signTypeEnum" property="signSchema.signTypeEnumInt"
+			javaType="int" />
+		<result column="signSchema_positionEnum" property="signSchema.positionEnumInt"
+			javaType="int" />
+		<result column="signSchema_signParamOrderEnum" property="signSchema.signParamOrderEnumInt"
+			javaType="int" />
+		<result column="signSchema_paramNames" property="signSchema.paramNameStrings" />
+		<result column="signSchema_singleParamFormat" property="signSchema.singleParamFormat" />
+		<result column="signSchema_beginCharacter" property="signSchema.beginCharacter" />
+		<result column="signSchema_endCharacter" property="signSchema.endCharacter" />
+		<result column="signSchema_spliceCharacter" property="signSchema.spliceCharacter" />
+		<result column="signSchema_signKeyMap" property="signSchema.signKeyMapStrings" />
+		<result column="signSchema_hasLastSplice" property="signSchema.hasLastSpliceInt"
+			javaType="int" />
+		<result column="tokenGrabId" property="tokenGrabId" />
+		<result column="tokenName" property="tokenName" />
+		<result column="userTokenRule" property="userTokenRule" />
+		<result column="positionEnum" property="positionEnumInt"
+			javaType="int" />
+		<result column="grabExtractElement" property="grabExtractElement" />
+		<result column="originalExtract" property="originalExtract" />
+		<result column="fixedValueParam" property="fixedValueParam" />
+		<result column="mappingValueParams" property="mappingValueParams" />
+		<result column="siteId" property="siteId" />
+		<result column="cpId" property="cpId" />
+		<result column="createTime" property="create_Time" />
+		<result column="updateTime" property="update_Time" />
+	</resultMap>
+
+	<sql id="authorColumns">
+        <![CDATA[
+			G.FID                    AS  id,
+			G.FNAME					 AS  name,
+			G.FURL                   AS  url,
+			G.FMETHOD_TYPE           AS  methodType,
+			G.FPARAM                 AS  paramSchema,
+			G.FHEAD                  AS  heads,
+			G.FSIGN_ID               AS  signId,
+			S.FID                    AS  signSchema_id,                   
+			S.FNAME                  AS  signSchema_signParamName,                 
+			S.FTYPE                  AS  signSchema_signTypeEnum,               
+			S.FPOSITION              AS  signSchema_positionEnum,   
+			S.FSIGN_ORDER_TYPE       AS  signSchema_signParamOrderEnum,
+			S.FPARAM                 AS  signSchema_paramNames,                 
+			S.FSINGLE_PARAM_FORMAT   AS  signSchema_singleParamFormat,   
+			S.FBEGIN                 AS  signSchema_beginCharacter,                    
+			S.FEND                   AS  signSchema_endCharacter,                    
+			S.FSPLICE                AS  signSchema_spliceCharacter,                  
+			S.FSIGNKEY               AS  signSchema_signKeyMap,             
+			S.FHAS_LAST_SPLICE       AS  signSchema_hasLastSplice,
+			G.FTOKEN_ID              AS  tokenGrabId,
+			G.FTOKEN_NAME            AS  tokenName,
+			G.FUSERTOKENRULE		 AS  userTokenRule,
+			G.FTOKEN_POSITION        AS  positionEnum,
+			G.FRULE                  AS  grabExtractElement,
+			G.FORIGINAL_RULE		 AS  originalExtract,
+			G.FSITE_ID               AS  siteId,
+			G.FCPID					 AS  cpId,
+			G.FCREATE_TIME			 AS  createTime,
+			G.FUPDATE_TIME			 AS  updateTime
+        ]]>
+	</sql>
+
+	<select id="get" resultMap="GrabParamString">
+		SELECT
+		<include refid="authorColumns" />
+        <![CDATA[
+			FROM T_GRAB G LEFT JOIN T_GRAB_SIGN S ON G.FSIGN_ID = S.FID
+			WHERE G.FID=#{id}
+		]]>
+	</select>
+
+	<select id="getList" resultMap="GrabParamString">
+		SELECT
+		<include refid="authorColumns" />
+		FROM T_GRAB G LEFT JOIN T_GRAB_SIGN S ON G.FSIGN_ID = S.FID
+		WHERE G.FID
+		IN
+		<foreach collection="ids" item="id" open="(" close=")"
+			separator=",">
+        <![CDATA[
+			#{id}
+		]]>
+		</foreach>
+	</select>
+
+	<select id="find" resultMap="GrabParamString">
+		SELECT
+		<include refid="authorColumns" />
+		FROM T_GRAB G LEFT JOIN T_GRAB_SIGN S ON G.FSIGN_ID = S.FID
+		WHERE 1=1 
+		<if test="url != null and url !=''">
+			<![CDATA[
+				AND G.FURL like CONCAT('%',#{url},'%')
+			 ]]>
+		</if>
+		<if test="name != null and name !=''">
+			<![CDATA[
+				AND G.FNAME like CONCAT('%',#{name},'%')
+			 ]]>
+		</if>
+		<if test="methodType != null">
+			 AND G.FMETHOD_TYPE = #{methodType}
+		</if>
+		<if test="heads != null">
+			<![CDATA[
+				AND G.FHEAD like like CONCAT('%',#{heads},'%')
+			 ]]>
+		</if>
+		<if test="signId != null">
+			AND G.FSIGN_ID = #{signId}
+		</if>
+		<if test="tokenGrabId != null">
+			AND G.FTOKEN_ID = #{tokenGrabId}
+		</if>
+		<if test="tokenName != null">
+			<![CDATA[
+				AND G.FTOKEN_NAME like CONCAT('%',#{tokenName},'%')
+			 ]]>
+		</if>
+		<if test="positionEnumInt != null">
+			AND G.FTOKEN_POSITION = #{positionEnumInt}
+		</if>
+		<if test="siteId != null">
+			AND G.FSITE_ID = #{siteId}
+		</if>
+		<if test="cpId != null">
+			AND G.FCPID = #{cpId}
+		</if>
+		<if test="id != null">
+			AND G.FID=#{id}
+		</if>
+		ORDER BY G.FID DESC
+	</select>
+
+
+	<insert id="add" parameterType="com.grab.domain.grab.GrabParamString"
+		useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_GRAB(
+		FNAME,
+		FURL ,
+		FMETHOD_TYPE ,
+		FPARAM ,
+		FHEAD ,
+		FSIGN_ID ,
+		FTOKEN_ID ,
+		FTOKEN_NAME ,
+		FTOKEN_POSITION,
+		FUSERTOKENRULE,
+		FRULE,
+		FORIGINAL_RULE,
+		FSITE_ID,
+		FCPID,
+		FCREATE_TIME ,
+		FUPDATE_TIME
+		)
+		VALUES (
+		<![CDATA[
+			  #{name},
+			  #{url},
+			  #{methodType},
+			  #{paramSchema},
+			  #{heads},
+			  #{signId},
+			  #{tokenGrabId},
+			  #{tokenName},
+			  #{positionEnumInt},
+			  #{userTokenRule},
+			  #{grabExtractElement},
+			  #{originalExtract},
+			  #{siteId},
+			  #{cpId},
+			  NOW(),
+			  NOW()
+		]]>
+		)
+	</insert>
+
+	<update id="update" parameterType="com.grab.domain.grab.GrabParamString">
+		UPDATE T_GRAB
+		<set>
+			<if test="name != null and name !=''">
+				FNAME = #{name},
+			</if>
+			<if test="url != null and url !=''">
+				FURL = #{url},
+			</if>
+			<if test="methodType != null">
+				FMETHOD_TYPE = #{methodType},
+			</if>
+			<if test="paramSchema != null">
+				FPARAM = #{paramSchema},
+			</if>
+			<if test="heads != null">
+				FHEAD = #{heads},
+			</if>
+			<if test="signId != null">
+				FSIGN_ID = #{signId},
+			</if>
+			<if test="tokenGrabId != null">
+				FTOKEN_ID = #{tokenGrabId},
+			</if>
+			<if test="tokenName != null">
+				FTOKEN_NAME = #{tokenName},
+			</if>
+			<if test="positionEnumInt != null">
+				FTOKEN_POSITION = #{positionEnumInt},
+			</if>
+			<if test="userTokenRule != null">
+				FUSERTOKENRULE = #{userTokenRule},
+			</if>
+			<if test="grabExtractElement != null and grabExtractElement !=''">
+				FRULE = #{grabExtractElement},
+			</if>
+			<if test="originalExtract != null and originalExtract !=''">
+				FORIGINAL_RULE = #{originalExtract},
+			</if>
+			<if test="siteId != null">
+				FSITE_ID = #{siteId},
+			</if>
+			<if test="cpId != null">
+				FCPID = #{cpId},
+			</if>
+			FUPDATE_TIME = NOW(),
+		</set>
+		WHERE FID = #{id}
+	</update>
+
+	<delete id="del">
+		DELETE G
+        <![CDATA[
+			FROM T_GRAB G
+			WHERE G.FID=#{id}
+		]]>
+	</delete>
+</mapper>

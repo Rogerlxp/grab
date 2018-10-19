@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.grab.dao.mapping.GrabTaskMapper">
+	<sql id="columns">
+        <![CDATA[
+			FID AS id,   
+            FGRABID AS grabId,  
+            FPARAM AS paramString,
+            FSPACE AS space,
+            FNEXT_RUN_TIME AS nextRunTime,
+            FLAST_RUN_TIME AS lastRunTime,
+            FSTATUS AS status,
+			FCREATE_TIME		   AS  createTime,
+			FUPDATE_TIME		   AS  updateTime
+        ]]>
+	</sql>
+
+	<select id="get" resultType="com.grab.domain.grab.GrabTask">
+		SELECT
+		<include refid="columns" />
+        <![CDATA[
+			FROM T_GRAB_TASK
+			WHERE FID=#{id}
+		]]>
+	</select>
+	
+	<select id="getWaitTask" resultType="com.grab.domain.grab.GrabTask">
+		SELECT
+		<include refid="columns" />
+        <![CDATA[
+			FROM T_GRAB_TASK
+			WHERE FSTATUS = 1 AND FNEXT_RUN_TIME >0 AND FNEXT_RUN_TIME < UNIX_TIMESTAMP(NOW())
+		]]>
+	</select>
+	
+	<update id="updateTask" parameterType="com.grab.domain.grab.GrabTask">
+		UPDATE T_GRAB_TASK
+		<set>
+			FUPDATE_TIME = NOW(),
+			<if test="grabId!=null and grabId>0">
+				 FGRABID = #{grabId}, 
+			</if>
+			<if test="paramString!=null and paramString!=''">
+				 FPARAM = #{paramString}, 
+			</if>
+			<if test="space!=null and space>0">
+				 FSPACE = #{space}, 
+			</if>
+			<if test="nextRunTime!=null and nextRunTime>0">
+				 FNEXT_RUN_TIME = #{nextRunTime}, 
+			</if>
+			<if test="lastRunTime!=null and lastRunTime>0">
+				 FLAST_RUN_TIME = #{lastRunTime}, 
+			</if>
+			<if test="status!=null and status>0">
+				 FSTATUS = #{status}, 
+			</if>
+		</set>
+		WHERE FID=#{id}
+	</update>
+	
+	<update id="updateTaskRunStatus" parameterType="com.grab.domain.grab.GrabTask">
+		UPDATE T_GRAB_TASK
+		<set>
+			<if test="nextRunTime!=null and nextRunTime>0">
+				 FNEXT_RUN_TIME = #{nextRunTime}, 
+			</if>
+			FLAST_RUN_TIME = UNIX_TIMESTAMP(NOW()), 
+		</set>
+		WHERE FID=#{id}
+	</update>
+	
+	
+	<insert id="add" parameterType="com.grab.domain.grab.GrabTask" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO T_GRAB_TASK(
+			FID,   
+            FGRABID,  
+            FPARAM,
+            FSPACE,
+            FNEXT_RUN_TIME,
+            FLAST_RUN_TIME,
+            FSTATUS,      
+			FCREATE_TIME		,
+			FUPDATE_TIME		
+		)
+		VALUES (
+		<![CDATA[
+			#{id},
+			#{grabId},
+			#{paramString},
+			#{space},
+			#{nextRunTime},
+			#{lastRunTime},
+			#{status},                 
+			NOW(),
+			NOW()
+		]]>
+		)
+	</insert>
+	
+</mapper>

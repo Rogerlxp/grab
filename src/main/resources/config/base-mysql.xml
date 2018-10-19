@@ -1,0 +1,37 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd"
+       default-lazy-init="true">
+
+    <!-- 本IDC内数据源 -->
+    <bean id="base-contents-dataSource" class="com.meizu.jdbc.druid.DruidBalanceDataSource" destroy-method="close">
+        <property name="driverClassName" value="com.alibaba.druid.proxy.DruidDriver"/>
+        <property name="writeJdbcUrl" value="${database.url.write}"/>
+        <property name="readJdbcUrl" value="${database.url.read}"/>
+        <property name="username" value="${database.username}"/>
+        <property name="password" value="${database.password}"/>
+        <property name="maxActive" value="${database.maxPoolSize}"/>
+        <property name="maxWait" value="${database.maxWait}"/>
+        <property name="initialSize" value="5"/>
+        <property name="minIdle" value="5"/>
+        <property name="timeBetweenEvictionRunsMillis" value="60000"/>
+        <property name="minEvictableIdleTimeMillis" value="300000"/>
+        <property name="validationQuery" value="select 1"/>
+        <property name="testWhileIdle" value="true"/>
+        <property name="testOnBorrow" value="false"/>
+        <property name="testOnReturn" value="false"/>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="0"/>
+    </bean>
+    
+    <bean id="baseContentsSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:/config/mybatis.xml"/>
+        <property name="dataSource" ref="base-contents-dataSource"/>
+    </bean>
+
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="baseContentsSessionFactory"/>
+        <property name="basePackage" value="com.grab.dao.mapping"/>
+        <property name="annotationClass" value="org.springframework.stereotype.Repository"/>
+    </bean>
+</beans>
+

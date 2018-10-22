@@ -270,7 +270,7 @@ public class ResultMappingUtil{
 			if(value != null) {
 				//长度
 				MappingSchema mappingSchema = map.get(GrabCommodity.ori_price);
-				commodity.setOri_price(_valueToLong(value));
+				commodity.setOri_price(_valueToBigDecimal(value));
 			}
 			value = getValue(resultParam,map, result,GrabCommodity.source);
 			if(value != null) {

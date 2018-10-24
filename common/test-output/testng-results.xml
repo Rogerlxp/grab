@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results skipped="0" failed="0" total="1" passed="1">
+  <reporter-output>
+  </reporter-output>
+  <suite name="Default suite" duration-ms="1542" started-at="2018-10-24T08:59:18Z" finished-at="2018-10-24T08:59:19Z">
+    <groups>
+    </groups>
+    <test name="Default test" duration-ms="1542" started-at="2018-10-24T08:59:18Z" finished-at="2018-10-24T08:59:19Z">
+      <class name="com.roger.grab.common.CPTester">
+        <test-method status="PASS" signature="aBeforeClass(org.testng.ITestContext)[pri:0, instance:com.roger.grab.common.CPTester@50d0686]" name="aBeforeClass" is-config="true" duration-ms="1398" started-at="2018-10-24T16:59:18Z" finished-at="2018-10-24T16:59:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[org.testng.TestRunner@363f6148]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- aBeforeClass -->
+        <test-method status="PASS" signature="aBeforeMethod(java.lang.reflect.Method)[pri:0, instance:com.roger.grab.common.CPTester@50d0686]" name="aBeforeMethod" is-config="true" duration-ms="13" started-at="2018-10-24T16:59:19Z" finished-at="2018-10-24T16:59:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.roger.grab.common.CPTester.add()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- aBeforeMethod -->
+        <test-method status="PASS" signature="add()[pri:0, instance:com.roger.grab.common.CPTester@50d0686]" name="add" duration-ms="118" started-at="2018-10-24T16:59:19Z" finished-at="2018-10-24T16:59:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- add -->
+        <test-method status="PASS" signature="zAfterMethod(java.lang.reflect.Method)[pri:0, instance:com.roger.grab.common.CPTester@50d0686]" name="zAfterMethod" is-config="true" duration-ms="1" started-at="2018-10-24T16:59:19Z" finished-at="2018-10-24T16:59:19Z">
+          <params>
+            <param index="0">
+              <value>
+                <![CDATA[public void com.roger.grab.common.CPTester.add()]]>
+              </value>
+            </param>
+          </params>
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- zAfterMethod -->
+        <test-method status="PASS" signature="zAfterClass()[pri:0, instance:com.roger.grab.common.CPTester@50d0686]" name="zAfterClass" is-config="true" duration-ms="1" started-at="2018-10-24T16:59:19Z" finished-at="2018-10-24T16:59:19Z">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- zAfterClass -->
+      </class> <!-- com.roger.grab.common.CPTester -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>

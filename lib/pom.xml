@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.roger.grab</groupId>
+		<artifactId>parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>../pom.xml</relativePath>
+	</parent>
+
+	<contributors>
+		<contributor>
+			<properties>
+				<grab.version>${grab.version}</grab.version>
+			</properties>
+		</contributor>
+	</contributors>
+
+	<groupId>com.roger.grab</groupId>
+	<artifactId>lib</artifactId>
+	<version>${grab.version}</version>
+	<name>lib</name>
+	<packaging>jar</packaging>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.meizu.datasource</groupId>
+			<artifactId>datasource</artifactId>
+			<version>1.0</version>
+			<scope>system</scope>
+			<systemPath>${project.basedir}/src/lib/meizu-datasource-2.0.3-RC04.jar</systemPath>
+		</dependency>
+	</dependencies>
+
+</project>

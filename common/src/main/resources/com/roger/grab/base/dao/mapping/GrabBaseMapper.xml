@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roger.grab.base.dao.mapping.GrabBaseMapper">
+	<sql id="modelFieldsColumns">
+        <![CDATA[
+			S.FID                    AS  id,     
+			S.FMODEID				 AS  modelId,
+			S.FFIELD				 AS  'name',              
+			S.FTYPE                  AS  'type',                 
+			S.FDESC                  AS  'desc'
+        ]]>
+	</sql>
+	
+	<sql id="errorCodeColumns">
+        <![CDATA[
+			FID                    AS  id,                   
+			FTYPE                  AS  type,                 
+			FDESC                  AS  des
+        ]]>
+	</sql>
+	
+	<sql id="modelColumns">
+        <![CDATA[
+			S.FID                    AS  id,     
+			S.FCLASS_BEAN            AS  classBean,                 
+			S.FDESC                  AS  'desc'
+        ]]>
+	</sql>
+
+	<select id="getModelFields" resultType="com.roger.grab.base.domain.grab.GrabModelField">
+		SELECT
+		<include refid="modelFieldsColumns" />
+        <![CDATA[
+			FROM T_GRAB_MAPPING_FIELD S
+			WHERE S.FMODEID=#{modelId}
+		]]>
+	</select>
+
+	<select id="getErrorCodes" resultType="com.roger.grab.base.domain.grab.GrabErrorCode">
+		SELECT
+		<include refid="errorCodeColumns" />
+        <![CDATA[
+			FROM T_GRAB_ERROR_CODE 
+		]]>
+	</select>
+	
+	<select id="getModels" resultType="com.roger.grab.base.domain.grab.GrabModel">
+		SELECT
+		<include refid="modelColumns" />
+        <![CDATA[
+			FROM T_GRAB_MAPPING_MODE S
+		]]>
+	</select>
+</mapper>

@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.roger.grab.base.dao.mapping.CpMapper">
+	<sql id="CpColumns">
+        <![CDATA[
+		C.FID                   AS	cpId	,
+		C.FCPNAME               AS	name	,
+		C.FENNAME				AS  enName	,
+		C.FURL                  AS	url	,
+		C.FICO_URL          	AS	ico_url	,
+		C.FEXPRESSIONS      	AS	expressions	,
+		C.FSTATUS           	AS	status	,
+		C.FTYPE             	AS	type	,
+		C.FAUTOMATIC_CAPTURE	AS	automatic_capture	,
+		C.FDESCRIPTION        	AS	description	,
+		C.FUPDATE_TIME       	AS	updateTime	,
+		C.FCREATE_TIME       	AS	createTime	,
+		C.FLEVEL            	AS	level	,
+		C.FCLASS_PATH       	AS	class_path	,
+		C.FINSERT_TYPE      	AS	insert_type	
+        ]]>
+	</sql>
+
+	<select id="getByStatus" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+        <![CDATA[
+			FROM T_CP C
+			WHERE C.FSTATUS=#{status}
+		]]>
+	</select>
+
+	<select id="get" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+        <![CDATA[
+			FROM T_CP C
+			WHERE C.FID = #{id}
+		]]>
+	</select>
+
+	<select id="getCps" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+		FROM T_CP C
+		WHERE C.FID IN (
+		<foreach collection="ids" item="id" separator=",">
+			#{id}
+		</foreach>
+		)
+	</select>
+
+	<select id="find" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+		FROM T_CP C
+		WHERE 1=1
+		<if test="cpId != null">
+			AND FID=#{cpId}
+		</if>
+		<if test="status != null">
+			AND FSTATUS=#{status}
+		</if>
+		<if test="type != null">
+			AND FTYPE = #{type}
+		</if>
+		<if test="level != null">
+			AND FLEVEL = #{level}
+		</if>
+		<if test="insert_type != null">
+			AND FINSERT_TYPE = #{insert_type}
+		</if>
+		<if test="name != null">
+			AND FCPNAME = #{name}
+		</if>
+		<if test="enName != null">
+			AND FENNAME = #{enName}
+		</if>
+	</select>
+
+	<select id="getByUpdate" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+        <![CDATA[
+			FROM T_CP C
+			WHERE UNIX_TIMESTAMP(C.FUPDATE_TIME) > #{updateTime}
+		]]>
+	</select>
+
+	<select id="getSupportBizCps" resultType="com.roger.grab.base.domain.content.CP">
+		SELECT
+		<include refid="CpColumns" />
+        <![CDATA[
+			FROM T_CP C
+			WHERE C.FSUPPORT_BIZ >>#{supportBizBit}&1=1   
+		]]>
+	</select>
+
+
+	<insert id="add" parameterType="com.roger.grab.base.domain.content.CP"
+		useGeneratedKeys="true" keyProperty="cpId">
+		INSERT INTO T_CP(
+		FID ,
+		FCPNAME ,
+		FENNAME ,
+		<if test="url != null">
+			FURL ,
+		</if>
+		<if test="ico_url != null">
+			FICO_URL ,
+		</if>
+		<if test="expressions != null">
+			FEXPRESSIONS ,
+		</if>
+		<if test="status != null">
+			FSTATUS ,
+		</if>
+		<if test="type != null">
+			FTYPE ,
+		</if>
+		<if test="automatic_capture != null">
+			FAUTOMATIC_CAPTURE ,
+		</if>
+		<if test="description != null">
+			FDESCRIPTION ,
+		</if>
+		<if test="level != null">
+			FLEVEL ,
+		</if>
+		<if test="class_path != null">
+			FCLASS_PATH ,
+		</if>
+		<if test="insert_type != null">
+			FINSERT_TYPE,
+		</if>
+		FUPDATE_TIME ,
+		FCREATE_TIME
+		)
+		VALUES (
+		#{cpId},
+		#{name},
+		#{enName},
+		<if test="url != null">
+			#{url},
+		</if>
+		<if test="ico_url != null">
+			#{ico_url},
+		</if>
+		<if test="expressions != null">
+			#{expressions},
+		</if>
+		<if test="status != null">
+			#{status},
+		</if>
+		<if test="type != null">
+			#{type},
+		</if>
+		<if test="automatic_capture != null">
+			#{automatic_capture},
+		</if>
+		<if test="description != null">
+			#{description},
+		</if>
+		<if test="level != null">
+			#{level},
+		</if>
+		<if test="class_path != null">
+			#{class_path},
+		</if>
+		<if test="insert_type != null">
+			#{insert_type},
+		</if>
+		NOW(),
+		NOW()
+		)
+	</insert>
+
+	<update id="update" parameterType="com.roger.grab.base.domain.content.CP">
+		UPDATE T_CP
+		<set>
+			<if test="name != null and name !=''">
+				FCPNAME = #{name},
+			</if>
+			<if test="enName != null and enName !=''">
+				FENNAME = #{enName},
+			</if>
+			<if test="url != null">
+				FURL = #{url},
+			</if>
+			<if test="ico_url != null">
+				FICO_URL = #{ico_url},
+			</if>
+			<if test="expressions != null">
+				FEXPRESSIONS = #{expressions},
+			</if>
+			<if test="status != null">
+				FSTATUS = #{status},
+			</if>
+			<if test="type != null">
+				FTYPE = #{type},
+			</if>
+			<if test="automatic_capture != null">
+				FAUTOMATIC_CAPTURE = #{automatic_capture},
+			</if>
+			<if test="description != null">
+				FDESCRIPTION = #{description},
+			</if>
+			FUPDATE_TIME = NOW(),
+			<if test="level != null">
+				FLEVEL = #{level},
+			</if>
+			<if test="class_path != null">
+				FCLASS_PATH = #{class_path},
+			</if>
+			<if test="insert_type != null">
+				FINSERT_TYPE =#{insert_type},
+			</if>
+		</set>
+		WHERE FID = #{cpId}
+	</update>
+
+	<delete id="del">
+		DELETE C
+        <![CDATA[
+			FROM T_CP C
+			WHERE C.FID = #{id}
+		]]>
+	</delete>
+</mapper>

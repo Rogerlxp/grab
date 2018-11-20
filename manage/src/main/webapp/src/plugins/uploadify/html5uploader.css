@@ -1,0 +1,47 @@
+@charset "utf-8";
+/* CSS Document */
+.uploadfile{
+	width:0;
+	}
+.filelist li{
+	list-style-type:none;
+	margin-top:10px;
+    position: relative;
+	}
+.filelist{
+	padding:0;
+	}
+.uploadbtn,.delfilebtn,.uploadfilebtn{
+    width:220px;
+    height:60px;
+	display:inline-block;
+	line-height:24px;
+	border-radius:2px;
+    font-size:12px;
+	color:#666;
+	cursor:pointer;
+    text-indent: -999999px;
+	text-decoration:none;
+	}
+.filename,.progressnum,.delfilebtn,.uploadbtn{
+	font-size:12px;
+	color:#666;
+	margin-left:10px;
+    margin-top: -30px;
+    white-space: nowrap;
+    word-break: normal;
+	}
+.progress{
+	 display:inline-block;
+	 background-color:white;
+	 border-radius:20px;
+	 vertical-align:middle;
+	 padding:0 2px;
+	 }
+.progressbar{
+	width:1px;
+	height:3px;
+    margin-left: -370px;
+	border-radius:20px;
+	background:#0099ff;
+	}

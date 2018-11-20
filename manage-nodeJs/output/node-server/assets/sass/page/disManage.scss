@@ -1,0 +1,40 @@
+@import '../common/variables';
+
+.dis-filter{
+    margin: 15px;
+    >*{
+        margin: 15px 0;
+    }
+    .dis-info{
+        display: flex;
+        margin: 15px 0;
+        >span{
+            margin-right: 15px;
+            color: rgba(0,0,0,0.5);
+            font-size: 13px;
+            >span{
+                color: rgba(0,0,0,0.8);
+            }
+        }
+    }
+    .block-title{
+        font-size: 14px;
+        color: rgba(0,0,0,0.8);
+        >i{
+            margin-right: 10px;
+        }
+    }
+    .ant-btn-group.publish{
+        margin-left: 15px;
+        .ant-btn-danger{
+            background: #f5222d;
+            color: #fff;
+            border: 1px solid #f5222d;
+        }
+    }
+    .dis-actions{
+        button{
+            margin-right: 12px;
+        }
+    }
+}

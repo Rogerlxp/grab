@@ -1,0 +1,19 @@
+.kiev-monitor {
+  margin: 15px; }
+  .kiev-monitor > form {
+    margin-bottom: 15px; }
+  .kiev-monitor .inline {
+    display: flex; }
+
+.kiev-monitor-editor button.block {
+  display: block;
+  width: 100%; }
+
+.kiev-monitor-editor .param .ant-input-group-addon {
+  width: 100px; }
+
+.kiev-monitor-editor .param .ant-input-suffix {
+  cursor: pointer; }
+
+
+/*# sourceMappingURL=34.css.map*/

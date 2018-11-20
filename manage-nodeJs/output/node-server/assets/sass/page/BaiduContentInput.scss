@@ -1,0 +1,22 @@
+#baidu-content-input{
+    .ant-select{
+        min-width: 200px;
+    }
+    form{
+        margin-top: 15px;
+        margin-bottom: 15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .ant-table{
+        padding-left: 15px;
+        padding-right: 15px;
+    }
+    .title-link{
+        white-space: nowrap;
+        width: 500px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: inline-block;
+    }
+}

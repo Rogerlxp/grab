@@ -1,0 +1,21 @@
+<?xml version="1.0"  encoding="UTF-8"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure class="org.eclipse.jetty.webapp.WebAppContext">
+	<Set name="contextPath">/</Set>
+	<Set name="maxFormContentSize">10000000</Set>
+	<Set name="extractWAR">true</Set>
+	<Set name="copyWebDir">false</Set>
+	<Set name="virtualHosts">
+		<Array type="String">			
+			<Item>om.grab.com</Item>
+		</Array>
+	</Set>
+	<Get name="sessionHandler">
+        <!--<Get name="sessionManager">            
+            <Set name="httpOnly" type="boolean">true</Set>
+        </Get>-->
+        <!-- jetty 9.x 后，sessionManager 已经被去掉了，可直接在sessionHandler中设置cookies、httpOnly -->
+        <Set name="httpOnly" type="boolean">true</Set>
+    </Get>
+</Configure>
+ 

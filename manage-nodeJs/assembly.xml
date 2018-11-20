@@ -1,0 +1,16 @@
+<assembly>
+	<id>node-server</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<fileSets>
+		<!-- 从目标目录拷贝文件去压缩 -->
+		<fileSet>
+			<directory>${project.basedir}\output\node-server</directory>
+			<includes>
+				<include>**</include>
+			</includes>
+			<outputDirectory>/</outputDirectory>
+		</fileSet>
+	</fileSets>
+</assembly>

@@ -1,0 +1,16 @@
+@import '~antd/dist/antd.css';
+@import '~braft-editor/dist/index.css';
+@import '../common/base.scss';
+@import '../widget/imageUploader.scss';
+@import '../component/ant.scss';
+@import '../component/breadcrumb.scss';
+@import '../component/contentList.scss';
+@import '../component/editorModal.scss';
+@import '../component/listFilter.scss';
+@import '../component/queryFilter.scss';
+@import '../component/navigation.scss';
+// pages
+@import './CPAPIManage.scss';
+.main{
+    padding: 0;
+}

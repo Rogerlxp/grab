@@ -3,8 +3,10 @@ package com.roger.grab.base.domain.content;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
-import com.sun.tools.javac.util.List;
+
 
 /**
  * 商品对象
@@ -51,24 +53,23 @@ public class Commodity implements Serializable {
 	private float positive;
 	
 	//分类ID
-	private Integer cpCategroyId;
+	private String cpCategroyId;
 	
 	//商户Id
 	private String merchantId;
 	
-	//商户商品数量
-	private Integer mer_com_count;
+	private Merchant merchant;
 	
-	//商户评论数量
-	private Integer mer_comment;
+	private Date cpCreateTime;
 	
-	//商户正面评论
-	private float mer_positive;
+	private Date cpUpdateTime;
 	
+	private Map<String, Object> extMap; 
+
 	private Date createTime;
 	
 	private Date updateTime;
-
+	
 	public String getId() {
 		return id;
 	}
@@ -197,11 +198,11 @@ public class Commodity implements Serializable {
 		this.positive = positive;
 	}
 
-	public Integer getCpCategroyId() {
+	public String getCpCategroyId() {
 		return cpCategroyId;
 	}
 
-	public void setCpCategroyId(Integer cpCategroyId) {
+	public void setCpCategroyId(String cpCategroyId) {
 		this.cpCategroyId = cpCategroyId;
 	}
 
@@ -211,30 +212,6 @@ public class Commodity implements Serializable {
 
 	public void setMerchantId(String merchantId) {
 		this.merchantId = merchantId;
-	}
-
-	public Integer getMer_com_count() {
-		return mer_com_count;
-	}
-
-	public void setMer_com_count(Integer mer_com_count) {
-		this.mer_com_count = mer_com_count;
-	}
-
-	public Integer getMer_comment() {
-		return mer_comment;
-	}
-
-	public void setMer_comment(Integer mer_comment) {
-		this.mer_comment = mer_comment;
-	}
-
-	public float getMer_positive() {
-		return mer_positive;
-	}
-
-	public void setMer_positive(float mer_positive) {
-		this.mer_positive = mer_positive;
 	}
 
 	public Date getCreateTime() {
@@ -252,5 +229,36 @@ public class Commodity implements Serializable {
 	public void setUpdateTime(Date updateTime) {
 		this.updateTime = updateTime;
 	}
-	
+
+	public Date getCpCreateTime() {
+		return cpCreateTime;
+	}
+
+	public void setCpCreateTime(Date cpCreateTime) {
+		this.cpCreateTime = cpCreateTime;
+	}
+
+	public Date getCpUpdateTime() {
+		return cpUpdateTime;
+	}
+
+	public void setCpUpdateTime(Date cpUpdateTime) {
+		this.cpUpdateTime = cpUpdateTime;
+	}
+
+	public Merchant getMerchant() {
+		return merchant;
+	}
+
+	public void setMerchant(Merchant merchant) {
+		this.merchant = merchant;
+	}
+
+	public Map<String, Object> getExtMap() {
+		return extMap;
+	}
+
+	public void setExtMap(Map<String, Object> extMap) {
+		this.extMap = extMap;
+	}
 }

@@ -1,0 +1,39 @@
+#content-algorithm-filter {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  padding-left: 15px;
+  padding-right: 15px; }
+  #content-algorithm-filter form {
+    margin-bottom: 15px; }
+  #content-algorithm-filter .ant-select {
+    min-width: 200px; }
+
+.dis-filter {
+  margin: 15px; }
+  .dis-filter > * {
+    margin: 15px 0; }
+  .dis-filter .dis-info {
+    display: flex;
+    margin: 15px 0; }
+    .dis-filter .dis-info > span {
+      margin-right: 15px;
+      color: rgba(0, 0, 0, 0.5);
+      font-size: 13px; }
+      .dis-filter .dis-info > span > span {
+        color: rgba(0, 0, 0, 0.8); }
+  .dis-filter .block-title {
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.8); }
+    .dis-filter .block-title > i {
+      margin-right: 10px; }
+  .dis-filter .ant-btn-group.publish {
+    margin-left: 15px; }
+    .dis-filter .ant-btn-group.publish .ant-btn-danger {
+      background: #f5222d;
+      color: #fff;
+      border: 1px solid #f5222d; }
+  .dis-filter .dis-actions button {
+    margin-right: 12px; }
+
+
+/*# sourceMappingURL=27.css.map*/

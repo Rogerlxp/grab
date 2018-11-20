@@ -1,0 +1,14 @@
+@import '../common/variables.scss';
+.navigation{
+    box-shadow: 0px 0px 9px rgba(0,0,0,0.6);
+    .ant-menu-item{
+        &.ant-menu-item-selected{
+            background-color: transparent;
+        }
+    }
+    .nav-user{
+        .ant-menu-overflowed-submenu{
+            display: none;
+        }
+    }
+}

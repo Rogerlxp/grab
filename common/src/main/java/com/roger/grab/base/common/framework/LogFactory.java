@@ -9,7 +9,7 @@ public class LogFactory {
 
 	static {
 		tryImplementation("org.apache.log4j.Logger",
-				"com.grab.common.framework.Log4jImpl");
+				"com.roger.grab.base.common.framework.Log4jImpl");
 	}
 
 	private static void tryImplementation(String testClassName,

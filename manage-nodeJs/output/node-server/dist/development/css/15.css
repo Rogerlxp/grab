@@ -1,0 +1,75 @@
+.author-articles-preview .ant-modal-body {
+  padding-left: 12px;
+  padding-right: 12px; }
+
+.author-articles-preview ul {
+  margin: 0;
+  padding: 0; }
+
+.author-articles-preview li {
+  list-style: none;
+  padding: 12px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1); }
+  .author-articles-preview li:last-child {
+    border-bottom: none;
+    margin-bottom: 0; }
+  .author-articles-preview li:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+    cursor: pointer; }
+
+.author-articles-preview .title {
+  font-size: 18px;
+  font-family: "Source Han Sans CN Medium";
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  box-orient: vertical;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  display: -webkit-box; }
+
+.author-articles-preview .info span {
+  margin-right: 15px;
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.5); }
+
+.author-articles-preview .more {
+  margin-top: 20px;
+  width: 100%;
+  text-align: center;
+  padding: 12px;
+  cursor: pointer;
+  border: 1px solid rgba(0, 0, 0, 0.1); }
+
+.author-articles-preview .type-zero {
+  display: flex;
+  justify-content: space-between; }
+  .author-articles-preview .type-zero img {
+    width: 150px;
+    height: 100px; }
+  .author-articles-preview .type-zero .left {
+    padding-right: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; }
+
+.author-articles-preview .type-fourth .title {
+  margin-bottom: 8px; }
+
+.author-articles-preview .type-fourth .images {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px; }
+
+.author-articles-preview .type-fourth img {
+  width: 150px;
+  height: 100px; }
+
+.author-articles-preview .type-seventh .cover {
+  margin: 10px 0; }
+
+.author-articles-preview .type-seventh img {
+  width: 100%;
+  height: 202px; }
+
+
+/*# sourceMappingURL=15.css.map*/

@@ -9,7 +9,8 @@ import java.util.Map;
  * @author Roger
  */
 public enum EntityTypeEnum {
-
+	MAP(4, "MAP"),
+	
     TOKEN(1, "TOKEN"),
 
     COMMODITY(2, "COMMODITY");

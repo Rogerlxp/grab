@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
  */
 @Test
 //@Transactional(transactionManagerName = "txManager", value = TransactionMode.COMMIT)
-@SpringContext(value = "config/spring-grab.xml", share = true)
+@SpringContext(value = "config/spring-grab-task.xml", share = true)
 public class GrabTester extends Test4J {
 
 	 @Test

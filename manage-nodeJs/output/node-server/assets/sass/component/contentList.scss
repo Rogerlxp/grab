@@ -1,0 +1,72 @@
+@import '../common/variables';
+
+.table-list{
+    margin: 15px;
+    background-color: #fff;
+    table{
+        thead{
+            th{
+                background-color: rgba(0,0,0,0.08);
+                text-align: center;
+            }
+        }
+        tbody{
+            tr{
+                &:nth-child(even){
+                    background-color: rgba(0,0,0,0.01);
+                }
+            }
+        }
+        .field-value{
+            white-space: nowrap;
+            display: block;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            line-height: 25px;
+            min-height: 25px;
+            >img{
+                max-height: 32px;
+            }
+            &.max-red{
+                color: #FF3333;
+            }
+        }
+        .clickable{
+            cursor: pointer;
+            color: #1890ff;
+            &:hover{
+                color: #40a9ff;
+            }
+        }
+        .ant-table-row.green{
+            background-color: #f3faf0;
+        }
+        .ant-table-row.sum-row {
+            background-color: transparent;
+            > td{
+                border-top: 1px solid #ccc;
+            }
+        }
+    }
+    .ant-table-footer{
+        padding: 0;
+        .more{
+            text-align: center;
+            padding: 15px;
+            cursor: pointer;
+            &:hover{
+                background-color: rgba(0,0,0,0.03);
+            }
+        }
+        strong{
+            margin-right: 10px;
+        }
+        span{
+            margin-right: 15px;
+            &.red{
+                color: #FF3333;
+            }
+        }
+    }
+
+}

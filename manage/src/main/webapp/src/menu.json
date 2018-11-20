@@ -1,0 +1,94 @@
+[
+	{
+        "name": "内容管理",
+        "children": [
+        {
+            "name": "内容库",
+            "location":"/page/content/article"
+        },
+        {
+        	"name": "特色库",
+        	"location": "/page/content/special"
+        },
+        {
+        	"name": "评论库",
+			"location": "/page/content/comment"
+        },
+        {
+        	"name": "新内容管理",
+			"location": "/om.iflow.meizu.com/v2/page/contents-manage"
+        }
+        ]
+	},
+	{
+        "name": "解析管理",
+        "children": [
+        {
+            "name": "规则配置",
+            "location":"/page/analysis/rule"
+        },
+        {
+        	"name": "脚本配置",
+        	"location": "/page/analysis/script"
+        }
+        ]
+	},
+	{
+	
+            "name": "分发管理",
+            "children": [
+	        {
+	            "name": "分发管理",
+	            "location":"/v2/page/distribution"
+	        }
+	        ]
+     
+	},
+	{
+	
+            "name": "作者管理",
+            "children": [
+	        {
+	            "name": "作者管理",
+	            "location":"/v2/page/author"
+	        }
+	        ]
+     
+	},
+	{
+        "name": "业务管理",
+        "children": [
+        {
+            "name": "内容源配置",
+            "location":"/page/biz/flow"
+        }]
+	},
+    {
+        "name": "权限管理",
+        "children": [
+        {
+            "name": "用户",
+            "location":"/page/auth/user"
+        }, 
+        {
+            "name": "角色",
+            "location":"/page/auth/role"
+        },
+        {
+            "name": "资源",
+            "location": "/page/auth/res"
+        }]
+    },
+    {
+        "name": "设置管理",
+        "children": [
+        {
+            "name": "基础数据",
+            "location":"/page/setting/bsdata"
+        }, 
+        {
+            "name": "系统参数",
+            "location":"/page/setting/param"
+        }]
+    }
+]

@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+    <title>魅族内容平台</title>
+    <meta charset="utf-8"/>
+    <meta name="keywords" content=""/>
+    <meta name="description" content=""/>
+    <meta name="referrer" content="no-referrer" />
+    <link href="/src/css/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/src/css/vendor/datatables.css" rel="stylesheet"/>
+    <link href="/src/css/vendor/dataTables.bootstrap.css" rel="stylesheet"/>
+    <link href="/src/css/base-page.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-static-top manage-nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" 
+                data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="javascript:void(0);">内容平台</a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav" id="nav-menu"></ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a id="adminName" href="javascript:"></a></li>
+                <li><a href="/session/logout.do">退出</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="panel panel-default manage-location">
+    <div class="panel-heading">
+        <ol class="breadcrumb">
+        </ol>
+    </div>
+</div>
+
+<div class="panel panel-default main-content">
+    <div class="panel-body">
+        <form class="search-form" id="search-form">
+        </form>
+        <div id="search-btns"></div>
+        <div class="table-wrap">
+            <table id="data-table" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="panel manage-bottom">
+    <div class="panel-footer"><p> ©2017 Meizu Telecom Equipment Co., Ltd. All rights reserved. 经营许可证编号：粤B2-20130198 </p></div>
+</div>
+
+<!-- BS modal -->
+<div class="modal fade" id="common-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="common-label"></h4>
+            </div>
+            <div class="modal-body" id="common-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary ac-sure">确定</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- alert modal -->
+<div class="modal" id="alert-modal" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="alert-label">提示</h4>
+            </div>
+            <div class="modal-body" id="alert-body"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary alert-sure">确定</button>
+                <button type="button" class="btn btn-default alert-cancel" data-dismiss="modal">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ajax loading -->
+<div class="loading-wrap none"></div>
+
+
+<!-- form templates -->
+<script id="form-edit-tpl" type="text/template">
+<form id="common-edit-form">
+    <input type="hidden" name="{{= data.name}}" value="{{= data.value}}"/>
+    <div class="modify">
+        <table cellspacing="0" width="100%" class="modify-table"></table>
+    </div>
+</form>
+</script>
+
+<!-- filed container templates -->
+<script id="filed-search-tpl" type="text/template">
+<div class="input-group {{= data.type}}">
+<span class="input-group-addon">{{= data.text}}</span>
+</div>
+</script>
+<script id="filed-edit-tpl" type="text/template">
+<tr>
+    <th>{{= data.text}}：</th>
+    <td>
+        <div class="form-group"></div>
+    </td>
+</tr>
+</script>
+<script id="filed-info-tpl" type="text/template">
+<tr>
+    <th>{{= data.text}}：</th>
+    <td>{{= data.value}}</td>
+</tr>
+</script>
+
+<!-- filed templates -->
+<script id="input-tpl" type="text/template">
+<input type="{{= data.type}}" name="{{= data.name}}" class="form-control"
+        value="{{= data.value}}" check-type="{{= data.checkType}}" />
+</script>
+<script id="checkbox-tpl" type="text/template">
+<div class="checkbox-wrap" data-name="{{= data.name}}" data-enum="{{= data.enumName}}" 
+        data-sel-all="{{= data.selAll}}" data-enum-id="{{= data.enumId}}" data-enum-text="{{= data.enumText}}">
+    <input type="hidden" name="{{= data.name + '_check'}}" class="form-control" value="{{= data.value}}"
+        check-type="{{= data.checkType}}" />
+</div>
+</script>
+<script id="textarea-tpl" type="text/template">
+<textarea class="form-control" name="{{= data.name}}" rows="3"
+        check-type="{{= data.checkType}}">{{= data.value}}</textarea>
+</script>
+<script id="date-tpl" type="text/template">
+<input type="{{= data.type}}" name="{{= data.name}}" class="form-control"
+        value="{{= data.value}}" check-type="{{= data.checkType}}" data-type={{= data.dataType}}
+        data-min="{{= data.dataMin}}" data-max="{{= data.dataMax}}" readonly="readonly"
+        data-min-date="{{= data.minDate}}" data-max-date="{{= data.maxDate}}"/>
+</script>
+<script id="select-tpl" type="text/template">
+<div class="btn-group">
+    <button type="button" class="btn btn-default dropdown-toggle form-control" data-toggle="dropdown">
+        <span class="dropdown-text"></span>
+        <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu scrollBar" data-enum="{{= data.enumName}}" data-sel-all="{{= data.selAll}}"
+        data-enum-id="{{= data.enumId}}" data-enum-text="{{= data.enumText}}" data-enum-attr="{{= data.enumAttr}}"
+        data-enum-parent="{{= data.enumParent}}"></ul>
+</div>
+<input type="hidden" name="{{= data.name}}" class="form-control" value="{{= data.value}}"
+        check-type="{{= data.checkType}}" data-info="{{= data.isAddInfo}}" />
+</script>
+<script id="upload-init-tpl" type="text/template">
+<div id="{{= data.name}}-upload" class="browse-file {{= data.type}}" title="请上传"></div>
+<input type="hidden" class="form-control url-hide" name="{{= data.name}}"
+        value="{{= data.value}}" check-type="{{= data.checkType}}"/>
+</script>
+<script id="img-upd-tpl" type="text/template">
+<div class="modify-icon">
+    <img src="{{= data.url}}" alt="logo" class="icon-img img-style" />
+    <a class="del-img J-del-img del-img-style" href="javascript:;">x</a>
+</div>
+</script>
+<script id="file-upd-tpl" type="text/template">
+<div class="modify-icon {{= data.type}}">
+    <span class="file-name">{{= data.url}}</span>
+    <a class="del-img J-del-img del-img-style" href="javascript:;">x</a>
+</div>
+</script>
+<script id="color-tpl" type="text/template">
+<div id="{{= data.name}}-color-picker" class="color-picker"></div>
+<input type="text" class="form-control picker-input" name="{{= data.name}}" readonly="readonly"
+        value="{{= data.value}}" check-type="{{= data.checkType}}"/>
+</script>
+<script id="editor-init-tpl" type="text/template">
+    <div class="modify-icon editor-info {{= data.type}}">
+        <div id="editor">
+        </div>
+        <input type="hidden" class="form-control editorval" name="{{= data.name}}"
+        	value="" check-type="{{= data.checkType}}"/>
+        <div class="editor-clz-value" style="display: none">{{= data.value}}</div>
+    </div>
+</script>
+<!-- other templates -->
+<script id="pos-tpl" type="text/template">
+<li><a href="url">{{= data.text}}</a></li>
+</script>
+<script id="th-tpl" type="text/template">
+<th width="{{= data.width}}">{{= data.text}}</th>
+</script>
+<script id="btn-tpl" type="text/template">
+<button type="button" class="btn btn-default btn-{{= data.clz || 'primary'}} ac-{{= data.action}}">{{= data.text}}</button>
+</script>
+<script id="ac-tpl" type="text/template">
+<button type="button" class="btn btn-{{= data.clz}} ac-{{= data.action}}">{{= data.text}}</button>
+</script>
+<script id="ac-more-tpl" type="text/template">
+<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">更多<span class="caret"></span></button>
+<ul class="dropdown-menu col-scrollBar" role="menu"></ul>
+</li>
+</script>
+<script id="ac-more-li-tpl" type="text/template">
+<li><a href="javascript:" class="ac-{{= data.action}}">{{= data.text}}</a></li>;
+</script>
+<script id="column-tpl" type="text/template">
+<div class="column-filed {{= data.columnClz}}" style="width: {{= data.width}}" title="{{= data.columnTitle}}">{{= data.columnText}}</div>
+</script>
+<script id="info-tpl" type="text/template">
+<div class="info-filed {{= data.columnClz}}" title="{{= data.columnTitle}}">{{= data.columnText}}</div>
+</script>
+
+<script id="order-tpl" type="text/template">
+    <div class="order-row" data-id="{{= data.id}}">
+        <span class="glyphicon glyphicon-arrow-up"></span>
+        <span class="glyphicon glyphicon-arrow-down"></span>
+    </div>
+</script>
+
+<script id="select-page-tpl" type="text/template">
+    <iframe src="{{= data.src}}" id="select-frame" name="selectFrame"></iframe>
+</script>
+<script src="/src/js/plugins/validator.js"></script>
+<script src="/src/js/vendor/jquery-1.11.3.js"></script>
+<script src="/src/js/vendor/bootstrap.js"></script>
+<script src="/src/js/vendor/jquery.dataTables.js"></script>
+<script src="/src/js/vendor/jquery.dataTables.pagination.input.js"></script>
+<script src="/src/js/vendor/dataTables.bootstrap.js"></script>
+<script src="/src/js/vendor/bootstrap3-validation.js"></script>
+<script src="/src/js/vendor/underscore.js"></script>
+<script src="/src/js/vendor/addCrawlInput.js"></script>
+<script src="/src/js/vendor/base-page.js"></script>
+<script src="/src/js/vendor/public.js"></script>
+<script src="/src/js/vendor/enums.js"></script>
+</body>
+</html>

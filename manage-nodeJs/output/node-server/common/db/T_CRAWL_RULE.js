@@ -1,0 +1,143 @@
+module.exports = [{
+    name: '规则ID',
+    keyName: 'FID',
+    isPrimaryKey: true,
+    isAutoGen: true,
+    readonly: true,
+    formOrder: 0
+}, {
+    name: '网站名称',
+    keyName: 'FSITE_NAME',
+    isRequired: true,
+    placeholder: '网站的名称，找不到“来源”时将使用这个字段',
+    formOrder: 1
+}, {
+    name: '网站地址',
+    keyName: 'FDOMAIN',
+    isRequired: true,
+    // validType: 'host',
+    placeholder: '例如：www.baidu.com，这是爬取规则配对的字段',
+    isImportUnique: true,
+    formOrder: 2,
+}, {
+    name: '标题规则',
+    keyName: 'FTITLE_RULE',
+    placeholder: '例如：h1,h2',
+    formOrder: 3
+}, {
+    name: '"标题"正则匹配',
+    keyName: 'FTITLE_REGEXP',
+    placeholder: '"标题"正则匹配',
+    unlistable: true,
+    formOrder: 4,
+},{
+    name: '“内容”规则',
+    keyName: 'FCONTENT_RULE',
+    placeholder: '例如：article#body，寻找“内容”的根元素',
+    formOrder: 5
+}, {
+    name: '“内容段落”规则',
+    keyName: 'FCONTENT_P_RULE',
+    placeholder: '更准确地识别“内容段落”，可以有效去除多余的内容元素',
+    formOrder: 6
+}, {
+    name: '"内容"过滤规则',
+    keyName: 'FCONTENT_NOT_RULE',
+    placeholder: '过滤掉多余的元素',
+    formOrder: 7,
+}, {
+    name: '“内容图片”规则',
+    keyName: 'FCONTENT_IMG_RULE',
+    placeholder: '更准确地识别“内容图片”，可以有效去除多余的内容元素',
+    formOrder: 8
+}, {
+    name: '“来源”规则',
+    keyName: 'FSOURCE_RULE',
+    placeholder: '文章来源，如这规则抓取失败会使用网站名称',
+    formOrder: 9
+}, {
+    name: '“来源”正则匹配',
+    keyName: 'FSOURCE_REGEXP',
+    placeholder: '例: “来源：新浪“，使用"来源[：|:]([\S]*)"即可抓取第一个括号内的内容，可以到"regex101.com"进行调试',
+    unlistable: true,
+    formOrder: 10
+}, {
+    name: '“作者”规则',
+    keyName: 'FAUTHOR_RULE',
+    placeholder: '文章的作者，不是来源，例如：span#author',
+    formOrder: 11
+}, {
+    name: '“作者”正则匹配',
+    keyName: 'FAUTHOR_REGEXP',
+    placeholder: '“作者”的正则匹配',
+    unlistable: true,
+    formOrder: 12
+},{
+    name: '发布时间规则',
+    keyName: 'FPUBLIC_DATE_RULE',
+    placeholder: '文章的发布时间，如抓取失败会使用当前系统时间',
+    formOrder: 13
+}, {
+    name: '分页规则',
+    keyName: 'FPAGE_RULE',
+    placeholder: '当文章有分页时，此项必须填写，自动抓取算法中没有自动判断分页的逻辑。例如：#pages>a.page',
+    formOrder: 14
+}, {
+    name: '获取HTML引擎',
+    keyName: 'FFETCH_ENGINE',
+    placeholder: 'chrome可以滚动页面和突破“防爬虫”机制但很慢，zombie可以捕获异步加载页面并且速度也很快，ajax速度最快',
+    type: 'select',
+    defaultValue: 'ajax',
+    unlistable: true,
+    options: [{
+        name: 'chrome',
+        value: 'chrome'
+    }, {
+        name: 'zombie',
+        value: 'zombie'
+    }, {
+        name: 'ajax',
+        value: 'ajax'
+    }],
+    formOrder: 15
+},{
+    name: '是否滚动页面',
+    keyName: 'FIS_NEED_SCROLL',
+    placeholder: '对于页面有lazyload的图片，必须启用该选项，并且使用chrome引擎',
+    defaultValue: 0,
+    type: 'select',
+    options: [{
+        name: '开启',
+        value: 1
+    }, {
+        name: '关闭',
+        value: 0
+    }],
+    unlistable: true,
+    formOrder: 16
+},{
+    name: '更新时间',
+    keyName: 'FUPDATE_TIME',
+    type: 'update-time',
+    uneditable: true,
+    unlistable: true,
+    formOrder: 17
+}, {
+    name: '创建时间',
+    keyName: 'FCREATE_TIME',
+    type: 'create-time',
+    uneditable: true,
+    unlistable: true,
+    formOrder: 18
+},{
+    name: '操作',
+    type: 'button',
+    buttons: [{
+        name: '编辑',
+        actionType: 'click',
+        actionName: 'toggleContentEditModal'
+    }, {
+        name: '删除',
+        actionName: 'deleteItem'
+    }]
+}];

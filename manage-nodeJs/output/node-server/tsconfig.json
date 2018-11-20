@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+      "sourceMap": true,
+      "target": "es2016",
+      "jsx": "react",
+      "noImplicitAny": false,
+      "lib": [
+        "es2015",
+        "es2017",
+        "dom",
+      ],
+      "moduleResolution": "node",
+      "module": "ESNext"
+    }
+  }

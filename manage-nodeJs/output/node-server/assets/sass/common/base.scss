@@ -1,0 +1,21 @@
+@import './variables';
+
+
+
+// normalize
+.hide{
+    display: none!important;
+}
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+label{
+    margin-bottom: 0;
+}
+
+// style
+// body{
+//     background-color: #ECEFF1;
+// }

@@ -1,0 +1,21 @@
+@import '../common/variables.scss';
+
+.edit-form-modal{
+    .detail-editor{
+        border: 1px solid #f1f1f1;
+        border-radius: 2px;
+        padding: 5px;
+    }
+    .bf-container {
+        border: 1px solid rgba(0,0,0,0.1);
+        border-radius: 3px;
+    }
+    .ant-form{
+        .ant-form-item-children{
+            display: flex;
+            .ant-btn{
+                margin-left: 8px;
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.alibaba.simpleEL.dialect.tiny.TinyELEvalService;
 import com.roger.grab.base.common.framework.ILog;
 import com.roger.grab.base.common.framework.LogFactory;
 import com.roger.grab.base.domain.content.Commodity;
+import com.roger.grab.base.domain.content.Merchant;
 import com.roger.grab.base.domain.grab.GrabMapping;
 import com.roger.grab.base.domain.grab.GrabResultParam;
 import com.roger.grab.base.domain.grab.GrabToken;
@@ -184,11 +186,17 @@ public class ResultMappingUtil{
 		public static final String desc = "desc";
 		public static final String img = "img";
 		public static final String detail_img = "detail_img";
+		//原价
 		public static final String ori_price="ori_price";
+		//实际价格
 		public static final String real_price="real_price";
+		//按美元计原价
 		public static final String ori_price_us="ori_price_us";
+		//按美元计实际价格
 		public static final String real_price_us="real_price_us";
+		//运费价格
 		public static final String shipping_price="shipping_price";
+		//按美元计运费价格
 		public static final String shipping_price_us="shipping_price_us";
 		//库存
 		public static final String inventory="inventory";
@@ -200,16 +208,10 @@ public class ResultMappingUtil{
 		public static final String positive="positive";
 		//分类ID
 		public static final String cpCategroyId="cpCategroyId";
-		//商户Id
-		public static final String merchantId="merchantId";
-		//商户商品数量
-		public static final String mer_com_count="mer_com_count";
-		//商户评论数量
-		public static final String mer_comment="mer_comment";
-		//商户正面评论
-		public static final String mer_positive="mer_positive";
-		public static final String createTime="createTime";
-		public static final String updateTime ="updateTime";
+		public static final String cpCreateTime="cpCreateTime";
+		public static final String cpUpdateTime ="cpUpdateTime";
+		public static final String extMap ="extMap";
+		
 	}
 	
 	/**
@@ -252,206 +254,193 @@ public class ResultMappingUtil{
 			}
 			value = getValue(resultParam,map, result,GrabCommodity.img);
 			if(value != null) {
-				//""处理
 				commodity.setImg(value.toString());
 			}
-			value = getValue(resultParam,map, result,GrabCommodity.desc);
+			value = getValue(resultParam,map, result,GrabCommodity.detail_img);
 			if(value != null) {
-				//长度
-				commodity.setDesc(value.toString());
+				MappingSchema mappingSchema = map.get(GrabCommodity.detail_img);
+				commodity.setDetail_img(_stringToArray(value.toString(), mappingSchema));
 			}
-//			value = getValue(resultParam,map, result,GrabCommodity.detail_img);
-//			if(value != null) {
-//				//长度
-//				MappingSchema mappingSchema = map.get(GrabCommodity.detail_img);
-//				commodity.setDetail_img((value, mappingSchema));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.ori_price);
-//			if(value != null) {
-//				//长度
-//				MappingSchema mappingSchema = map.get(GrabCommodity.ori_price);
-//				commodity.setOri_price(_valueToBigDecimal(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.source);
-//			if(value != null) {
-//				//长度
-//				commodity.setSource(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.h5_url);
-//			if(value != null) {
-//				commodity.setH5_url(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.share_url);
-//			if(value != null) {
-//				commodity.setShare_url(value.toString());
-//			}
-//			//状态对应关系转换
-//			value = getValue(resultParam,map, result,GrabCommodity.status);
-//			if(value != null) {
-//				commodity.setStatus(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.authorName);
-//			if(value != null) {
-//				commodity.setAuthor(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.pv);
-//			if(value != null) {
-//				commodity.setPv(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.commentCount);
-//			if(value != null) {
-//				commodity.setCommentCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.shareCount);
-//			if(value != null) {
-//				commodity.setShareCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.collectCount);
-//			if(value != null) {
-//				commodity.setCollectCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.diggCount);
-//			if(value != null) {
-//				commodity.setDiggCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.buryCount);
-//			if(value != null) {
-//				commodity.setBuryCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.publish_time);
-//			if(value != null) {
-//				commodity.setPublish_time(_valueToDate(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.cp_recom_time);
-//			if(value != null) {
-//				commodity.setCp_recom_time(_valueToDate(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.weight);
-//			if(value != null) {
-//				commodity.setWeight(_valueToInteger(value));
-//			}
-//			commodity.setCreate_time(new Date());
-//			commodity.setRelease_time(new Date());
-//			commodity.setUpdate_time(new Date());
-//			commodity.setEntityUniqId( ContentIdUtil.createMeizuUniqEntityId(commodity.getCpId(), commodity.getCpEntityId()) );
-//
-//			MappingSchema mappingSchema_ext = map.get(GrabCommodity.extend);
-//			commodity.setExtendMap(_valueToExtendMap(resultParam, result, mappingSchema_ext));
-//			
-//			mappingSchema_ext = map.get(GrabCommodity.requestId);
-//			commodity.setRequestId(_valueToExtendMap(resultParam, result, mappingSchema_ext));
-//			
-//			value = getValue(resultParam,map, result,GrabCommodity.bigImg);
-//			if(value != null) {
-//				MappingSchema mappingSchema = map.get(GrabCommodity.bigImg);
-//				if(value.getClass().isArray()) {
-//					int count = Array.getLength(value);
-//					for(int i=0 ; i<count;i++) {
-//						Object object = Array.get(value, i);
-//						handlerBigImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof JSONArray) {
-//					JSONArray array = (JSONArray) value;
-//					for (Object object : array) {
-//						handlerBigImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof List) {
-//					List<String> array = (List<String>) value;
-//					for (String object : array) {
-//						handlerBigImg(commodity, object,mappingSchema);
-//					}
-//				}else {
-//					//单个对象
-//					handlerBigImg(commodity, value,mappingSchema);
-//					Object width = getValue(resultParam,map, result,GrabCommodity.bigImg_width);
-//					Object height = getValue(resultParam,map, result,GrabCommodity.bigImg_height);
-//					if(commodity.getImgInfo()!=null && !Collections.isNullOrEmpty(commodity.getImgInfo().getBigImgInfos())) {
-//						if(commodity.getImgInfo().getBigImgInfos().size() == 1) {
-//							ImgInfo imgInfo = commodity.getImgInfo().getBigImgInfos().get(0);
-//							if(imgInfo!=null) {
-//								imgInfo.setHeight(_valueToInteger(height));
-//								imgInfo.setWidth(_valueToInteger(width));
-//							}
-//						}
-//					}
-//				}
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.midImg);
-//			if(value != null) {
-//				MappingSchema mappingSchema = map.get(GrabCommodity.midImg);
-//				if(value.getClass().isArray()) {
-//					int count = Array.getLength(value);
-//					for(int i=0 ; i<count;i++) {
-//						Object object = Array.get(value, i);
-//						handlerMidImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof JSONArray) {
-//					JSONArray array = (JSONArray) value;
-//					for (Object object : array) {
-//						handlerMidImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof List) {
-//					List<String> array = (List<String>) value;
-//					for (String object : array) {
-//						handlerMidImg(commodity, object,mappingSchema);
-//					}
-//				}else {
-//					//单个对象
-//					handlerMidImg(commodity, value,mappingSchema);
-//					Object width = getValue(resultParam,map, result,GrabCommodity.midImg_width);
-//					Object height = getValue(resultParam,map, result,GrabCommodity.midImg_height);
-//					if(commodity.getImgInfo()!=null && !Collections.isNullOrEmpty(commodity.getImgInfo().getMidImgInfos())) {
-//						if(commodity.getImgInfo().getMidImgInfos().size() == 1) {
-//							ImgInfo imgInfo = commodity.getImgInfo().getMidImgInfos().get(0);
-//							if(imgInfo!=null) {
-//								imgInfo.setHeight(_valueToInteger(height));
-//								imgInfo.setWidth(_valueToInteger(width));
-//							}
-//						}
-//					}
-//				}
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.smallImg);
-//			if(value != null) {
-//				MappingSchema mappingSchema = map.get(GrabCommodity.smallImg);
-//				if(value.getClass().isArray()) {
-//					int count = Array.getLength(value);
-//					for(int i=0 ; i<count;i++) {
-//						Object object = Array.get(value, i);
-//						handlerSmallImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof JSONArray) {
-//					JSONArray array = (JSONArray) value;
-//					for (Object object : array) {
-//						handlerSmallImg(commodity, object,mappingSchema);
-//					}
-//				}else if(value instanceof List) {
-//					List<String> array = (List<String>) value;
-//					for (String object : array) {
-//						handlerSmallImg(commodity, object,mappingSchema);
-//					}
-//				}else {
-//					//单个对象
-//					handlerSmallImg(commodity, value,mappingSchema);
-//					Object width = getValue(resultParam,map, result,GrabCommodity.smallImg_width);
-//					Object height = getValue(resultParam,map, result,GrabCommodity.smallImg_height);
-//					if(commodity.getImgInfo()!=null && !Collections.isNullOrEmpty(commodity.getImgInfo().getSmallImgInfos())) {
-//						if(commodity.getImgInfo().getSmallImgInfos().size() == 1) {
-//							ImgInfo imgInfo = commodity.getImgInfo().getSmallImgInfos().get(0);
-//							if(imgInfo!=null) {
-//								imgInfo.setHeight(_valueToInteger(height));
-//								imgInfo.setWidth(_valueToInteger(width));
-//							}
-//						}
-//					}
-//				}
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.content);
-//			if(value != null) {
-//				commodity.setContent(value.toString());
-//			}
-//			mappingToAuthor(resultParam,commodity,map,result,cpId);
+			value = getValue(resultParam,map, result,GrabCommodity.ori_price);
+			if(value != null) {
+				commodity.setOri_price(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.ori_price_us);
+			if(value != null) {
+				commodity.setOri_price_us(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.real_price);
+			if(value != null) {
+				commodity.setReal_price(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.real_price_us);
+			if(value != null) {
+				commodity.setReal_price_us(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.shipping_price);
+			if(value != null) {
+				commodity.setShipping_price(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.shipping_price_us);
+			if(value != null) {
+				commodity.setShipping_price_us(_valueToBigDecimal(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.inventory);
+			if(value != null) {
+				commodity.setInventory(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.sales);
+			if(value != null) {
+				commodity.setSales(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.comment);
+			if(value != null) {
+				commodity.setComment(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.positive);
+			if(value != null) {
+				commodity.setPositive(_valueToFloat(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.cpCategroyId);
+			if(value != null) {
+				commodity.setCpCategroyId(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.cpUpdateTime);
+			if(value != null) {
+				commodity.setCpUpdateTime(_valueToDate(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.cpCreateTime);
+			if(value != null) {
+				commodity.setCpCreateTime(_valueToDate(value));
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.id);
+			if(value != null) {
+				commodity.setMerchantId(value.toString());
+			}
+			Merchant merchant = mappingToMerchant(resultParam,map,result,cpId);
+			if(merchant!=null) {
+				commodity.setMerchant(merchant);
+				if(commodity.getCpId()!=null) {
+					merchant.setCpId(commodity.getCpId());
+				}
+			}
+			MappingSchema mappingSchema_ext = map.get(GrabCommodity.extMap);
+			merchant.setExtMap(_valueToExtendMap(resultParam, result, mappingSchema_ext));
+
+			Date date = new Date();
+			commodity.setUpdateTime(date);
+			commodity.setCreateTime(date);
 			return commodity;
+		}catch (Exception e) {
+			LOGGER.error("映射对象失败",e);
+		}
+		return null;
+	}
+	
+	/**
+	 * 商户对象字段
+	 * @author MEIZU
+	 *
+	 */
+	public static class GrabMerchant{
+		public static final String id = "mer_id";
+		public static final String cpId = "mer_cpId";
+		public static final String name="mer_name";
+		public static final String desc = "mer_desc";
+		public static final String img = "mer_img";
+		//销量
+		public static final String sales="mer_sales";
+		//商品数量
+		public static final String count="mer_count";
+		//评论数量
+		public static final String comment="mer_comment";
+		//正面评价占比
+		public static final String positive="mer_positive";
+		//分类ID
+		public static final String cpCategroyId="mer_cpCategroyId";
+		public static final String cpCreateTime="mer_cpCreateTime";
+		public static final String cpUpdateTime ="mer_cpUpdateTime";
+		
+		public static final String extMap ="mer_extMap";
+	}
+	
+	/**
+	 * 自动组装商户对象
+	 * @param mappingSchemas
+	 * @param result
+	 * @return
+	 */
+	public static Merchant mappingToMerchant(GrabResultParam resultParam,Map<String, MappingSchema> map, Map<String, Object> result,Integer cpId) {
+		try {
+			if(map == null || map.isEmpty() || cpId == null) {
+				return null;
+			}
+			if(result == null || result.isEmpty()) {
+				return null;
+			}
+			if(resultParam == null) {
+				return null;
+			}
+			_addFixedValue(resultParam, result);
+			_replaceMappingValue(resultParam.getMappingValueParams(), result);
+
+			Merchant merchant = new Merchant();
+			merchant.setCpId(cpId == null?null:cpId.toString());
+			Object value = getValue(resultParam, map, result, GrabMerchant.cpId);
+			if(value !=null) {
+				merchant.setCpId(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.id);
+			if(value != null) {
+				merchant.setId(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.name);
+			if(value != null) {
+				merchant.setName(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.desc);
+			if(value != null) {
+				merchant.setDesc(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.img);
+			if(value != null) {
+				merchant.setImg(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.sales);
+			if(value != null) {
+				merchant.setSales(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.comment);
+			if(value != null) {
+				merchant.setComment(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.count);
+			if(value != null) {
+				merchant.setCount(_valueToInteger(value));
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.positive);
+			if(value != null) {
+				merchant.setPositive(_valueToFloat(value));
+			}
+			value = getValue(resultParam,map, result,GrabMerchant.cpCategroyId);
+			if(value != null) {
+				merchant.setCpCategroyId(value.toString());
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.cpUpdateTime);
+			if(value != null) {
+				merchant.setCpUpdateTime(_valueToDate(value));
+			}
+			value = getValue(resultParam,map, result,GrabCommodity.cpCreateTime);
+			if(value != null) {
+				merchant.setCpCreateTime(_valueToDate(value));
+			}
+			MappingSchema mappingSchema_ext = map.get(GrabCommodity.extMap);
+			merchant.setExtMap(_valueToExtendMap(resultParam, result, mappingSchema_ext));
+			
+			Date date = new Date();
+			merchant.setUpdateTime(date);
+			merchant.setCreateTime(date);
+			return merchant;
 		}catch (Exception e) {
 			LOGGER.error("映射对象失败",e);
 		}
@@ -507,6 +496,19 @@ public class ResultMappingUtil{
 
 			}
 			return map;
+		}
+		return null;
+	}
+	
+	private static Float _valueToFloat(Object value) {
+		if(value instanceof String && StringUtil.isNotEmpty(value.toString())) {
+			return Float.valueOf(value.toString());
+		}else if(value instanceof Long){
+			return ((Float)value);
+		}else if(value instanceof Integer){
+			return (Float)value;
+		}else if(value instanceof BigDecimal) {
+			return (float)((BigDecimal)value).intValue();
 		}
 		return null;
 	}
@@ -595,281 +597,18 @@ public class ResultMappingUtil{
 			return value.toString();
 		}
 	}
-
-//	private static void handlerBigImg(Content content, Object value,MappingSchema mappingSchema) {
-//		Img img = content.getImgInfo() == null ? new Img():content.getImgInfo();
-//		List<ImgInfo> list = img.getBigImgInfos() == null ? new ArrayList<>():img.getBigImgInfos();
-//		ImgInfo info = new ImgInfo();
-//		String url = value.toString();
-//		if(StringUtil.isEmpty(url)) {
-//			return;
-//		}
-//		if(!(url.startsWith("http:") || url.startsWith("https:"))) {
-//			url = "http:"+url;
-//		}
-//		url = url.replaceAll(",", "%2c");
-//		info.setUrl(url);
-//		list.add(info);
-//		img.setBigImgInfos(list);
-//		content.setImgInfo(img);
-//	}  
 	
-//	private static void handlerMidImg(Content content, Object value,MappingSchema mappingSchema) {
-//		Img img = content.getImgInfo() == null ? new Img():content.getImgInfo();
-//		List<ImgInfo> list = img.getMidImgInfos() == null ? new ArrayList<>():img.getMidImgInfos();
-//		ImgInfo info = new ImgInfo();
-//		String url = value.toString();
-//		if(StringUtil.isEmpty(url)) {
-//			return;
-//		}
-//		if(!(url.startsWith("http:") || url.startsWith("https:"))) {
-//			url = "http:"+url;
-//		}
-//		url = url.replaceAll(",", "%2c");
-//		info.setUrl(url);
-//		list.add(info);
-//		img.setMidImgInfos(list);
-//		content.setImgInfo(img);
-//	}  
-	
-//	private static void handlerSmallImg(Content content, Object value,MappingSchema mappingSchema) {
-//		Img img = content.getImgInfo() == null ? new Img():content.getImgInfo();
-//		List<ImgInfo> list = img.getSmallImgInfos() == null ? new ArrayList<>():img.getSmallImgInfos();
-//		ImgInfo info = new ImgInfo();
-//		String url = value.toString();
-//		if(StringUtil.isEmpty(url)) {
-//			return;
-//		}
-//		if(!(url.startsWith("http:") || url.startsWith("https:"))) {
-//			url = "http:"+url;
-//		}
-//		url = url.replaceAll(",", "%2c");
-//		info.setUrl(url);
-//		list.add(info);
-//		img.setSmallImgInfos(list);
-//		content.setImgInfo(img);
-//	}  
-	
-	
-	
-	
-	
-	/**
-	 * 自动组装cpContent对象
-	 * @param resultParam
-	 * @param map2
-	 * @param result
-	 * @param cpId
-	 * @return
-	 */
-//	public static CpContent mappingToCpContent(GrabResultParam resultParam, Map<String, MappingSchema> map,Map<String, Object> result, Integer cpId) {
-//		try {
-//			if(map == null || map.isEmpty() || cpId == null) {
-//				return null;
-//			}
-//			if(result == null || result.isEmpty()) {
-//				return null;
-//			}
-//			if(resultParam == null) {
-//				return null;
-//			}
-//			CpContent cpContent = new CpContent();
-//			cpContent.setCpId(cpId);
-//			Object value = getValue(resultParam,map, result,GrabCommodity.cpEntityId);
-//			if(value != null) {
-//				cpContent.setCpEntityId(value.toString());
-//			}
-//			value =getValue(resultParam,map, result,GrabCommodity.status);
-//			if(value != null) {
-//				cpContent.setCp_status(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.type);
-//			if(value != null) {
-//				cpContent.setCp_contentType(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.title);
-//			if(value != null) {
-//				String string = value.toString();
-//				cpContent.setCp_title(string.substring(0, Math.min(string.length(), 170)));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.category);
-//			if(value != null) {
-//				String string = value.toString();
-//				cpContent.setCp_category(string.substring(0, Math.min(string.length(), 170)));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.tag);
-//			if(value != null) {
-//				String string = value.toString();
-//				cpContent.setCp_tag(string.substring(0, Math.min(string.length(), 170)));
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.h5_url);
-//			if(value != null) {
-//				cpContent.setCp_url(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabCommodity.publish_time);
-//			if(value != null) {
-//				cpContent.setPublishTime(_valueToDate(value));
-//			}
-//			cpContent.setCreateTime(new Date());
-//			cpContent.setCp_content(JSON.toJSONString(result));
-//			return cpContent;
-//		}catch (Exception e) {
-//			LOGGER.error("映射对象失败",e);
-//		}
-//		return null;
-//	}
-
-
-	/**
-	 * 待组装的Author对象属性
-	 * @author Roger
-	 *
-	 */
-	public static class GrabAuthorKey{
-		public static final String id="author.id";
-		public static final String cpAuthorId="author.cpAuthorId";
-		public static final String name="author.name";
-		public static final String desc="author.desc";
-		public static final String followCount="author.followCount";
-		public static final String img="author.img";
-		public static final String homeUrl="author.homeUrl";
-		public static final String status="author.status";
-		public static final String videoCount="author.videoCount";
-		public static final String articleCount="author.articleCount";
-		public static final String hot="author.hot";
-		public static final String recommendStar="author.recommendStar";
-		public static final String contentSign="author.contentSign";
-		public static final String openType="author.openType";
+	private static List<String> _stringToArray(String value,MappingSchema mappingSchema) {
+		if(StringUtil.isEmpty(value)) {
+			return null;
+		}
+		String[] strings = value.split(SPLIT_LIST_CHAR);
+		List<String> list = new ArrayList<>();
+		for (String string : strings) {
+			list.add(string);
+		}
+		return list;
 	}
-
-	/**
-	 * 自动组装Content对象
-	 * @param mappingSchemas
-	 * @param result
-	 * @return
-	 */
-//	public static Author mappingToAuthor(GrabResultParam resultParam,Content c,Map<String, MappingSchema> map, Map<String, Object> result,Integer cpId) {
-//		try {
-//			if(map == null || map.isEmpty() || cpId == null) {
-//				return null;
-//			}
-//			if(result == null || result.isEmpty()) {
-//				return null;
-//			}
-//			if(resultParam == null) {
-//				return null;
-//			}
-//			_addFixedValue(resultParam, result);
-//			_replaceMappingValue(resultParam.getMappingValueParams(), result);
-//
-//			Author author = null;
-//
-//			Object value = getValue(resultParam,map, result,GrabAuthorKey.cpAuthorId);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setCpAuthorId(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.id);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setId(_valueToInteger(value));
-//			}
-//			value =getValue(resultParam,map, result,GrabAuthorKey.name);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setName(value.toString());
-//				if(c!=null && StringUtil.isEmpty(c.getAuthor())) {
-//					c.setAuthor(author.getName());
-//				}
-//			}else if(c!=null && StringUtil.isNotEmpty(c.getAuthor())) {
-//				author = author == null ? new Author():author;
-//				author.setName(c.getAuthor());
-//			}
-//
-//			value = getValue(resultParam,map, result,GrabAuthorKey.desc);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setDesc(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.img);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				String url = value.toString();
-//				if(!(url.startsWith("http:") || url.startsWith("https:"))) {
-//					url = "http:"+url;
-//				}
-//				author.setImg(url);
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.homeUrl);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setHomeUrl(value.toString());
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.followCount);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setFollowCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.status);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setStatus(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.videoCount);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setVideoCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.articleCount);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setArticleCount(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.hot);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setHot(_valueToInteger(value));
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.recommendStar);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				if(value instanceof String && StringUtil.isNotEmpty(value.toString())) {
-//					author.setRecommendStar(Float.valueOf(value.toString()));
-//				}else if(value instanceof Long){
-//					author.setRecommendStar(((Long)value));
-//				}else if(value instanceof Integer){
-//					author.setRecommendStar((Integer)value);
-//				}else if(value instanceof Float){
-//					author.setRecommendStar((Float)value);
-//				}
-//			}
-//			value = getValue(resultParam,map, result,GrabAuthorKey.contentSign);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setContentSign(_valueToInteger(value));
-//			}
-//			value =getValue(resultParam,map, result,GrabAuthorKey.openType);
-//			if(value != null) {
-//				author = author == null ? new Author():author;
-//				author.setOpenType(_valueToInteger(value));
-//			}
-//			if(author == null) {
-//				return null;
-//			}
-//			if(c!=null) {
-//				c.setUserInfo(author);
-//			}
-//			author.setCpId(cpId);
-//			if(c!=null && c.getCpId() == null) {
-//				c.setCpId(cpId);
-//			}
-//			author.setCreateTime(new Date());
-//			return author;
-//		}catch (Exception e) {
-//			LOGGER.error("映射对象失败",e);
-//		}
-//		return null;
-//	} 
 
 	private static Object getValue(GrabResultParam resultParam,Map<String, MappingSchema> map,Map<String, Object> result,String attribute ) {
 		MappingSchema mappingSchema = map.get(attribute);

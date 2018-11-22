@@ -63,6 +63,7 @@ public class Commodity implements Serializable {
 	private Date cpCreateTime;
 	
 	private Date cpUpdateTime;
+	
 	//扩展属性
 	private Map<String, Object> extMap; 
 

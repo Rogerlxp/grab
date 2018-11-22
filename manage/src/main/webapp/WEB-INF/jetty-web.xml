@@ -7,7 +7,11 @@
 	<Set name="copyWebDir">false</Set>
 	<Set name="virtualHosts">
 		<Array type="String">			
+<<<<<<< HEAD
 			<Item>om.iflow.meizu.com</Item>
+=======
+			<Item>om.grab.com</Item>
+>>>>>>> 25f81651ca73ec7ec1117b96898122ec79e9134e
 		</Array>
 	</Set>
 	<Get name="sessionHandler">

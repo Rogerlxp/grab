@@ -25,6 +25,7 @@ router.get('/logout', function(req, res){
     res.redirect(logoutUrl);
 });
 router.get('/getInfo', checkLoginMiddleware, function(req, res){
+<<<<<<< HEAD
     //let userData = userModel.getOneById(req.session.user.id);
     res.json({
         code: 200,
@@ -32,6 +33,15 @@ router.get('/getInfo', checkLoginMiddleware, function(req, res){
             id: 1,//userData.id,
             name: 'admin',//userData.name,
             permissions: []//userData.permissions
+=======
+    let userData = userModel.getOneById(req.session.user.id);
+    res.json({
+        code: 200,
+        value: {
+            id: userData.id,
+            name: userData.name,
+            permissions: userData.permissions
+>>>>>>> 25f81651ca73ec7ec1117b96898122ec79e9134e
         }
     });
 });

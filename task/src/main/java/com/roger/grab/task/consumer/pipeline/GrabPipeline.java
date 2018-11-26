@@ -1,4 +1,4 @@
-package com.roger.grab.task.pipeline;
+package com.roger.grab.task.consumer.pipeline;
 
 import java.util.ArrayList;
 import java.util.HashMap;

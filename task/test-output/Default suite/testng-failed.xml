@@ -3,15 +3,15 @@
 <suite name="Failed suite [Default suite]">
   <test name="Default test(failed)">
     <classes>
-      <class name="com.grab.WishTester">
+      <class name="com.grab.MeizuHome">
         <methods>
+          <include name="doGet"/>
           <include name="zAfterMethod"/>
           <include name="zAfterClass"/>
           <include name="aBeforeClass"/>
           <include name="aBeforeMethod"/>
-          <include name="doGet"/>
         </methods>
-      </class> <!-- com.grab.WishTester -->
+      </class> <!-- com.grab.MeizuHome -->
     </classes>
   </test> <!-- Default test(failed) -->
 </suite> <!-- Failed suite [Default suite] -->

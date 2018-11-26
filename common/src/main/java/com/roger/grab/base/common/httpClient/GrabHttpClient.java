@@ -41,6 +41,7 @@ import com.roger.grab.base.domain.grab.TokenSchema;
 import com.roger.grab.base.enums.grab.ErrorTypeEnum;
 import com.roger.grab.base.enums.grab.MethodTypeEnum;
 
+import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.utils.UrlUtils;
 
 @Service
@@ -107,7 +108,17 @@ public class GrabHttpClient {
 	 */
 	public static GrabResult doHttp(GrabTriggerParam grabTriggerParam,GrabParam grabParam,GrabSite grabSite,GrabToken token) throws GrabException {
 		String result = doHttpOriginal(grabTriggerParam, grabParam, grabSite, token);
-		return GrabAnalysisUtil.doAnalysis(grabParam.getUrl(), result, grabParam);
+		switch (grabParam.getGrabExtractElement().getType()) {
+		case HTML:
+			Html html = new Html(result);
+			return GrabAnalysisUtil._doAnalysis(grabParam.getUrl(),html, grabParam);
+		case JSON:
+		case JSONP:
+			return GrabAnalysisUtil.doAnalysis(grabParam.getUrl(), result, grabParam);
+		default:
+			break;
+		}
+    	return null;
 	}
 	
 	public static String doHttpOriginal(GrabTriggerParam grabTriggerParam,GrabParam grabParam,GrabSite grabSite,GrabToken token) throws GrabException {

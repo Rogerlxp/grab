@@ -1,4 +1,4 @@
-package com.roger.grab.task.downloader;
+package com.roger.grab.task.consumer.downloader;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -125,6 +125,11 @@ public class GrabDownloader extends us.codecraft.webmagic.downloader.HttpClientD
 		GrabParam grabParam = null;
 		try{
 			grabParam = GrabConfigUtil.getGrabParam(request);
+			//记录初始参数，下一链时可使用
+			Map<String, Object> original_params = new HashMap<>();
+			if(grabParam!=null && grabParam.getParamSchema()!=null && grabParam.getParamSchema().getParamMap()!=null) {
+				original_params.putAll(grabParam.getParamSchema().getParamMap());
+			}
 			if(grabParam == null) {
 				throw new GrabException(ErrorTypeEnum.CREATE_REQUEST_ERROR, null, "request未添加grab,request:"+request, null, null);
 			}
@@ -166,6 +171,10 @@ public class GrabDownloader extends us.codecraft.webmagic.downloader.HttpClientD
 			}
 			requestBuilder.setConfig(requestConfigBuilder.build());
 			grabService.statistics(grabParam.getId(), HandleProcessEnum.CREATE_REQUEST, null, StatusEnum.SUCCESS);
+			//还原grab 参数（生成请求时参数可能被移除）
+			if(grabParam!=null && grabParam.getParamSchema()!=null && (!original_params.isEmpty())) {
+				grabParam.getParamSchema().setParamMap(original_params);
+			}
 			return requestBuilder.build();
 		}catch (GrabException e) {
     		grabService.addLog(grabParam.getId(),HandleProcessEnum.CREATE_REQUEST,e.getErrorTypeEnum(),e.getDataStatusCode(),e.getMessage(),e.getException());

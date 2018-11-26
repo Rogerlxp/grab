@@ -1,4 +1,4 @@
-package com.roger.grab.task.spider;
+package com.roger.grab.task.consumer.spider;
 
 import java.io.Closeable;
 import java.io.IOException;

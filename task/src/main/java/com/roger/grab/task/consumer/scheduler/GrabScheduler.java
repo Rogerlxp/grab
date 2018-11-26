@@ -1,4 +1,4 @@
-package com.roger.grab.task.scheduler;
+package com.roger.grab.task.consumer.scheduler;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -39,7 +39,7 @@ import com.roger.grab.base.enums.grab.MethodTypeEnum;
 import com.roger.grab.base.enums.grab.ObjectTypeEnum;
 import com.roger.grab.base.enums.grab.TextTypeEnum;
 import com.roger.grab.base.service.grab.IGrabService;
-import com.roger.grab.task.Grab;
+import com.roger.grab.task.consumer.Grab;
 
 /**
  * 

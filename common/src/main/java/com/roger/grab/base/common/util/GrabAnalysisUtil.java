@@ -76,7 +76,7 @@ public class GrabAnalysisUtil {
      * @return
      * @throws GrabException 
      */
-    private static GrabResult _doAnalysis(final String url,final Html html,final GrabParam grabParam) throws GrabException {
+    public static GrabResult _doAnalysis(final String url,final Html html,final GrabParam grabParam) throws GrabException {
     	GrabResult grabResult =null;
     	
     	GrabResultDataStatus status = grabParam.getGrabExtractElement().getGrabResultDataStatus();

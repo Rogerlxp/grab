@@ -74,11 +74,11 @@ public class GrabNextUrlUtil{
 			Map<String, Object> baseNextUrlParams = null;
 			Map<String, Object> nextUrlParams = new HashMap<>();
 			if(ListUtils.isNotEmpty(grabUrl.getSchemas())) {
-				//提取下一链接基础参数
+				//从返回中提取下一链接基础参数
 				nextUrlParams.putAll(_nextUrlParam(page,grabParam.getGrabExtractElement(),grabUrl.getSchemas()));
 			}
 			if(ListUtils.isNotEmpty(grabUrl.getParamSchemas())) {
-				//提取下一链接基础参数
+				//从参数中提取下一链接基础参数
 				nextUrlParams.putAll(_nextUrlParam_byParam(page.getUrl().get(),grabParam,grabUrl.getParamSchemas()));
 			}
 			if(nextUrlParams!=null && !nextUrlParams.isEmpty()) {

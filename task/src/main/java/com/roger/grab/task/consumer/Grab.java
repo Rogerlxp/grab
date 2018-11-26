@@ -1,4 +1,4 @@
-package com.roger.grab.task;
+package com.roger.grab.task.consumer;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -9,12 +9,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.roger.grab.task.downloader.GrabDownloader;
-import com.roger.grab.task.pipeline.GrabPipeline;
-import com.roger.grab.task.processor.GrabPageProcessor;
-import com.roger.grab.task.scheduler.GrabScheduler;
-import com.roger.grab.task.spider.GrabSpider;
-import com.roger.grab.task.spider.GrabSpider.Status;
+import com.roger.grab.task.consumer.downloader.GrabDownloader;
+import com.roger.grab.task.consumer.pipeline.GrabPipeline;
+import com.roger.grab.task.consumer.processor.GrabPageProcessor;
+import com.roger.grab.task.consumer.scheduler.GrabScheduler;
+import com.roger.grab.task.consumer.spider.GrabSpider;
+import com.roger.grab.task.consumer.spider.GrabSpider.Status;
 
 @Service
 public class Grab implements InitializingBean {

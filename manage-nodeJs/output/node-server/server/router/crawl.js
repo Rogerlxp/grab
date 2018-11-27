@@ -15,7 +15,7 @@ const API = require('../const/API');
 const URI = require('urijs');
 const sizeOf = require('image-size');
 const Browser = require('zombie');
-const puppeteer = require('puppeteer');
+const puppeteer = '';//require('puppeteer');
 const REFERER_MAP = require('../../common/REFERER_MAP');
 const sql = require('../lib/mysql');
 const multer = require('multer');
@@ -110,7 +110,7 @@ const uploadImage = function(req, url){
         if(!ext){
             resolve({
                 code: 502,
-                message: '无法获取文件类型： ' + ext,
+                message: '鏃犳硶鑾峰彇鏂囦欢绫诲瀷锛� ' + ext,
                 value: ''
             });
             return;
@@ -174,7 +174,7 @@ router.post('/getContent', checkLogin, async (req, res)=>{
     if(!url){
         res.json({
             code: 500,
-            message: '必需提供抓取页面的URL地址',
+            message: '蹇呴渶鎻愪緵鎶撳彇椤甸潰鐨刄RL鍦板潃',
             value: ''
         });
         return;
@@ -276,7 +276,7 @@ router.all('/getHtml', async function (req, res){
     if(!args.url){
         res.json({
             code: 500,
-            message: '必须提供url',
+            message: '蹇呴』鎻愪緵url',
             value: ''
         });
         return;
@@ -296,7 +296,7 @@ router.all('/getHtml', async function (req, res){
     if(error){
         res.json({
             code: 501,
-            message: '抓取错误',
+            message: '鎶撳彇閿欒',
             value: error
         });
         return;
@@ -307,7 +307,7 @@ router.all('/getHtml', async function (req, res){
     }catch(error){
         res.json({
             code: 502,
-            message: '提取HTML错误',
+            message: '鎻愬彇HTML閿欒',
             value: ''
         });
         throw error;
@@ -392,7 +392,7 @@ router.get('/topicInfo', async function(req, res){
         console.error(error);
         res.jsonp({
             code: 501,
-            message: '访问主题页失败，请确认输入的url是否完整并且正确。',
+            message: '璁块棶涓婚椤靛け璐ワ紝璇风‘璁よ緭鍏ョ殑url鏄惁瀹屾暣骞朵笖姝ｇ‘銆�',
             value: ''
         });
         throw error;
@@ -407,7 +407,7 @@ router.get('/topicInfo', async function(req, res){
     const desc = $('.info>.desc').text();
     res.jsonp({
         code: 200,
-        message: '获取成功',
+        message: '鑾峰彇鎴愬姛',
         value: {
             list,
             title,

@@ -12,10 +12,7 @@ const getKeyByReg = require('../lib/getKeyByReg');
 const userModel = require('../model/user');
 const dns = require('dns');
 module.exports = async function(req, res, next){
-<<<<<<< HEAD
 	return next();
-=======
->>>>>>> 25f81651ca73ec7ec1117b96898122ec79e9134e
     // console.log('check login');
     // console.log('is xhr: ', req.xhr);
     const cookies = req.cookies;

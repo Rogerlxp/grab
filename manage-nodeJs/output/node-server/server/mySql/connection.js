@@ -25,7 +25,7 @@ if(!MYSQL_CONFIG.connectionLimit){
  * Make sure comment out when deploying outside production environment.
 */
 // with li feng dev machine. 
-MYSQL_CONFIG.host = '172.16.187.146';
+MYSQL_CONFIG.host = '127.0.0.1';
 MYSQL_CONFIG.user = 'root';
 MYSQL_CONFIG.password = 'meizu.com';
 MYSQL_CONFIG.connectionLimit=1;

@@ -1,4 +1,4 @@
-const puppeteer = require('puppeteer');
+const puppeteer = '';//require('puppeteer');
 
 module.exports = async function (url, rule) {
     const browser = await puppeteer.launch({args: ['--no-sandbox']});
